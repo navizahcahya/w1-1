@@ -1,2 +1,1 @@
-# w1
-Materials for workshop 'R Introduction for Data Science'
+# R Introduction for Data Science 
