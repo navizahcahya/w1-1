@@ -1,0 +1,102 @@
+---
+title: "Pendahuluan"
+author: "Muhammad Aswan Syahputra"
+date: "4/9/2019"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+Ini merupakan dokumen R Markdown yang dapat digunakan untuk membuat dokumen HTML, PDF, dan bahkan dokumen berekstensi docx atau odt. Anda dapat membuat dokumen tulisan, salindia presentasi, dan laman web statis maupun interaktif dengan melalui R Markdown. Penggunaan R Markdown dalam proyek analisis data akan membuat alur kerja menjadi lebih mudah dan *reproducible*. Informasi lebih lanjut mengenai R Markdown dapat dilihat pada pranala [ini](http://rmarkdown.rstudio.com).
+
+Kode R dapat dimasukan ke dalam dokumen R Markdown dengan menggunakan *chuck* yang dimulai dengan penanda  tiga *backtick* '```' (dibuat dengan klik tombol Insert - R). Contoh cara untuk penulisan kode R kedalam dokumen R Markdown adalah sebagai berikut:
+
+```{r}
+head(mtcars) # melihat 6 baris pertama dari data mtcars
+```
+
+Jika ingin menjalankan kode R dalam *chuck* tersebut, Anda dapat menggunakan pemintas Ctrl + Enter (menjalankan satu baris kode) atau Ctrl + Shift + Enter (menjalankan semua kode dalam *chuck*). Sekarang buatlah *chuck* baru yang isinya adalah baris kode R berikut: (Petunjuk: Gunakan Ctrl + Alt + I)
+
+filled.contour(volcano,
+               color.palette = terrain.colors, 
+               plot.title = title("Topografi Gunung Maunga Whau"), 
+               key.title = title("Tinggi\n(meter)"))
+
+Setelah selesai membuat dokumen R Markdown yang berisikan konten tulisan beserta kode R, Anda dapat klik tombol **Knit** untuk menghasilkan dokumen baru sesuai dengan format dokumen yang diinginkan. Dalam contoh ini format dokumen keluaran R Markdown setelah menjalankan **Knit** adalah dokumen HTML. Anda dapat mengatur format dokumen keluaran dengan cara mengubah baris *output* pada YAML metadata (lihat baris paling atas dokumen ini) seperti contoh berikut:
+
+```
+---
+title: "Pendahuluan"
+author: "Muhammad Aswan Syahputra"
+date: "4/9/2019"
+output: pdf_document
+editor_options: 
+  chunk_output_type: console
+---
+```
+
+## Struktur Data
+
+Struktur data pada R dapat dikategorikan berdasarkan dimensi dan homogenitas dari elemen. Data satu dimensi dengan elemen yang homogen disebut sebagai *atomic vector*, sedangkan jika heterogen disebut sebagai *list*. Cara untuk membuat *atomic vectors* adalah dengan menggunakan fungsi `c()`, sedangkan untuk *list* dapat dibuat dengan menggunakan fungsi `list()`. Salah satu cara untuk memberikan nama pada objek data adalah dengan menggunakan tanda `<-`. Perhatikan contoh berikut:
+
+```{r}
+c(1, 2, 3, 4)
+c("r", "academy", "telkom", "university")
+list(15, "r", "TRUE", 24L)
+
+huruf_vokal <- c("a", "i", "u", "e", "o") # objek data tersimpan dengan nama 'huruf_vokal', namun tidak tercetak pada konsol
+huruf_vokal # mencetak objek data dengan nama 'huruf_vokal' pada konsol
+```
+
+Jenis dari data dapat diketahui dengan menggunakan fungsi `typeof()`. Dapatkah Anda mengetahui jenis data dari 'huruf_vokal' diatas? Bagaimana jika Anda membuat objek data dengan menggunakan fungsi `c()` namun jenis elemennya berbeda-beda? Dapatkah Anda menjelaskannya? Isilah '___' dengan jawaban yang sesuai!
+
+```{r}
+___(huruf_vokal)
+
+beragam <- c(2.7, "berbeda", TRUE, 4L) # 2.7 bertipe double, "berbeda" bertipe character, TRUE bertipe logical, 4L bertipe integer
+typeof(___) # cek tipe dari objek data dengan nama 'beragam'
+```
+
+Struktur data dua dimensi merupakan yang paling banyak digunakan di R, yaitu matrix dan dataframe yang dapat dibuat dengan menggunakan fungsi `matrix()` dan `data.frame()`. Kedua data tersebut umumnya jarang dibuat secara langsung di R, notabene berasal dari berkas luar atau merupakan hasil dari penggunaan fungsi. Prinsipnya suatu dataframe merupakan gabungan dari beberapa data satu dimensi dengan jumlah yang sama, umumnya adalah *atomic vectors*. Menurut Anda, dapatkah suatu frame tersusun atas beberapa *list* dengan jumlah yang sama?
+
+## Fungsi
+
+Fungsi memiliki tugas utama untuk mengolah suatu *input* menjadi *output*. Anda dapat melihat dan membaca dokumentasi dari suatu fungsi dengan menjalankan `?nama_fungsi` atau `help(nama_fungsi)`. Di bawah ini merupakan beberapa fungsi dasar yang dapat Anda gunakan untuk mengolah objek data dengan nama 'iris' sebagai *input*. Dapatkah Anda menebak mana fungsi yang berjenis '*changing the environment*' dan mana yang berjenis '*calculating value*'?
+
+```{r}
+iris # mencetak data di konsol
+dim(iris) # memberikan dimensi dari data. Angka pertama merupakan jumlah baris dan angka kedua adalah jumlah kolom
+str(iris) # mencetak struktur dari data (jumlah baris, jumlah kolom, nama kolom, jenis data pada kolom)
+colnames(iris) # mencetak nama dari setiap kolom
+head(iris) # mencetak 6 baris pertama pada data
+head(iris, 10) # mencetak 10 baris pertama pada data
+tail(iris) # mencetak 6 baris terakhir pada data
+tail(iris, 10) # mencetak 10 baris terakhir pada data
+View(iris) # membuka data pada 'data viewer' di RStudio
+summary(iris) # mencetak rangkuman data
+iris[1, ] # subset data pada baris 1
+iris[c(1, 6, 12),] # subset data pada baris 1, 6, dan 12
+iris[ ,2] # subset atau ekstrak data pada kolom 2
+iris[2,2] # ekstrak nilai pada baris 2 dan kolom 2
+iris$Sepal.Length # ekstrak data pada kolom 'Sepal.Length'
+class(iris$Species) # mengetahui jenis data dari suatu vektor
+length(iris$Petal.Width) # mengetahui jumlah data pada suatu vektor
+levels(iris$Species) # mengetahui level dari kolom berjenis faktor
+length(levels(iris$Species)) # mengetahui jumlah level dari kolom berjenis faktor
+unique(iris$Species) # mengetahui nilai unik dari kolom berjenis karakter atau faktor
+length(unique(iris$Species)) # mengetahui jumlah nilai unik dari kolom berjenis karakter atau faktor
+mean(iris$Sepal.Length) # menghitung rerata
+sd(iris$Sepal.Length) # menghitung standar deviasi
+median(iris$Sepal.Width) # menghitung median
+sum(iris$Petal.Length) # menghitung jumlah total
+plot(iris) # membuat plot
+cor(iris[, -5]) # membuat matriks korelasi pada semua kolom berjenis numerik
+write.csv(iris, file = "iris.csv", row.names = FALSE) # menyimpan iris menjadi berkas csv 
+```
+
