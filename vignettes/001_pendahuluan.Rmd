@@ -2,7 +2,16 @@
 title: "Pendahuluan"
 author: "Muhammad Aswan Syahputra"
 date: "4/9/2019"
-output: html_document
+output:
+  html_document: 
+    df_print: kable
+    fig_height: 6
+    fig_width: 9
+    highlight: textmate
+    theme: yeti
+    toc: yes
+    toc_collapsed: yes
+    toc_float: yes
 editor_options: 
   chunk_output_type: console
 ---
@@ -15,13 +24,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Ini merupakan dokumen R Markdown yang dapat digunakan untuk membuat dokumen HTML, PDF, dan bahkan dokumen berekstensi docx atau odt. Anda dapat membuat dokumen tulisan, salindia presentasi, dan laman web statis maupun interaktif dengan melalui R Markdown. Penggunaan R Markdown dalam proyek analisis data akan membuat alur kerja menjadi lebih mudah dan *reproducible*. Informasi lebih lanjut mengenai R Markdown dapat dilihat pada pranala [ini](http://rmarkdown.rstudio.com).
 
-Kode R dapat dimasukan ke dalam dokumen R Markdown dengan menggunakan *chuck* yang dimulai dengan penanda  tiga *backtick* '```' (dibuat dengan klik tombol Insert - R). Contoh cara untuk penulisan kode R kedalam dokumen R Markdown adalah sebagai berikut:
+Kode R dapat dimasukan ke dalam dokumen R Markdown dengan menggunakan *chunck* yang dimulai dengan penanda  tiga *backtick* '```' (dibuat dengan klik tombol Insert - R). Contoh cara untuk penulisan kode R kedalam dokumen R Markdown adalah sebagai berikut:
 
 ```{r}
-head(mtcars) # melihat 6 baris pertama dari data mtcars
+head(mtcars) # melihat 6 baris pertama dari data mtcars, mtcars adalah data bawaan yang tersedia di R
 ```
 
-Jika ingin menjalankan kode R dalam *chuck* tersebut, Anda dapat menggunakan pemintas Ctrl + Enter (menjalankan satu baris kode) atau Ctrl + Shift + Enter (menjalankan semua kode dalam *chuck*). Sekarang buatlah *chuck* baru yang isinya adalah baris kode R berikut: (Petunjuk: Gunakan Ctrl + Alt + I)
+Jika ingin menjalankan kode R dalam *chunck* tersebut, Anda dapat menggunakan pemintas Ctrl + Enter (menjalankan satu baris kode) atau Ctrl + Shift + Enter (menjalankan semua kode dalam *chunck*). Sekarang buatlah *chunck* baru yang isinya adalah baris kode R berikut: (Petunjuk: Gunakan Ctrl + Alt + I)
 
 filled.contour(volcano,
                color.palette = terrain.colors, 
@@ -67,7 +76,7 @@ Struktur data dua dimensi merupakan yang paling banyak digunakan di R, yaitu mat
 
 ## Fungsi
 
-Fungsi memiliki tugas utama untuk mengolah suatu *input* menjadi *output*. Anda dapat melihat dan membaca dokumentasi dari suatu fungsi dengan menjalankan `?nama_fungsi` atau `help(nama_fungsi)`. Di bawah ini merupakan beberapa fungsi dasar yang dapat Anda gunakan untuk mengolah objek data dengan nama 'iris' sebagai *input*. Dapatkah Anda menebak mana fungsi yang berjenis '*changing the environment*' dan mana yang berjenis '*calculating value*'?
+Fungsi memiliki tugas utama untuk mengolah suatu *input* menjadi *output*. Anda dapat melihat dan membaca dokumentasi dari suatu fungsi dengan menjalankan `?nama_fungsi` atau `help(nama_fungsi)`. Di bawah ini merupakan beberapa fungsi dasar yang dapat Anda gunakan untuk mengolah objek data dengan nama 'iris' sebagai *input*. Anda dipersilakan untuk menekan tombol **Knit** (Ctrl + Shift + K) untuk menghasilkan dokumen html. Dari dokumen html tersebut, dapatkah Anda menebak mana fungsi yang berjenis '*changing the environment*' dan mana yang berjenis '*calculating value*'? 
 
 ```{r}
 iris # mencetak data di konsol
@@ -78,7 +87,6 @@ head(iris) # mencetak 6 baris pertama pada data
 head(iris, 10) # mencetak 10 baris pertama pada data
 tail(iris) # mencetak 6 baris terakhir pada data
 tail(iris, 10) # mencetak 10 baris terakhir pada data
-View(iris) # membuka data pada 'data viewer' di RStudio
 summary(iris) # mencetak rangkuman data
 iris[1, ] # subset data pada baris 1
 iris[c(1, 6, 12),] # subset data pada baris 1, 6, dan 12
@@ -99,4 +107,3 @@ plot(iris) # membuat plot
 cor(iris[, -5]) # membuat matriks korelasi pada semua kolom berjenis numerik
 write.csv(iris, file = "iris.csv", row.names = FALSE) # menyimpan iris menjadi berkas csv 
 ```
-
