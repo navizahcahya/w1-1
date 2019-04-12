@@ -1,0 +1,101 @@
+---
+title: "Visualisasi"
+author: "Muhammad Aswan Syahputra"
+date: "4/9/2019"
+output:
+  html_document: 
+    df_print: default
+    fig_height: 6
+    fig_width: 9
+    highlight: textmate
+    keep_md: yes
+    theme: yeti
+    toc: yes
+    toc_collapsed: yes
+    toc_float: yes
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Dalam modul visualisasi ini, Anda akan menggunakan data `evals` dan paket `ggplot2`. Aktifkanlah paket untuk mengimpor data dan paket `ggplot2`!
+
+```{r}
+___
+___
+```
+
+Sekarang impor dataset `evals` melalui pranala "https://www.openintro.org/stat/data/evals.csv". Simpan obyek data tersebut dengan nama `evals`. (Petunjuk: `?read_csv`)
+
+```{r}
+evals <- read_csv("___")
+evals
+```
+
+Anda dapat membuat grafik melalui `ggplot2` dengan menggunakan kode dengan struktur berikut:
+
+```
+ggplot(data, aes(x, y)) +
+  geom_X()
+```
+
+Anda dapat mengganti `X` dengan `geom` yang sesuai. Misalnya `geom_point()` untuk menggambar titik, `geom_line` untuk menggambar garis, `geom_text` untuk memasukan teks dalam gambar. Perhatikan contoh berikut untuk membuat `scatterplot` antara `bty_avg` terhadap `age`.
+
+```{r}
+ggplot(data = evals, aes(x = age, y = bty_avg)) +
+  geom_point()
+```
+
+Sekarang dapatkah Anda membuat grafik dengan `gender` pada sumbu x dan `bty_avg` pada sumbu y? Serta gantilah `geom_point()` menjadi `geom_boxplot`. Grafik dan informasi apakah yang Anda dapatkan?
+
+```{r}
+ggplot(data = evals, aes(x = ___, y = bty_avg)) +
+  ___
+```
+
+
+Anda dapat menambahkan informasi mengenai variabel lain kedalam plot dengan menempatkannya pada bagian `aes()` dengan menggunakan `aesthetic` yang sesuai. Apa yang akan terjadi saat anda menambahkan informasi 'colour = gender' pada baris kode berikut?
+
+```{r}
+ggplot(data = evals, aes(x = age, y = bty_avg, colour = ___)) +
+  geom_point()
+```
+
+Selain menambahkan `aesthetic`, Anda juga dapat menambahkan `geometry` dengan cara menggunakan tanda `+`. Apa yang akan terjadi jika Anda menambahkan `geom_line` pada baris kode berikut? Menurut Anda data apakah yang cocok digunakan untuk jenis grafik tersebut?
+
+```{r}
+ggplot(data = evals, aes(x = age, y = bty_avg, colour = gender)) +
+  geom_point() +
+  ___
+```
+
+Pada contoh-contoh di atas, Anda menggunakan nilai `x` dan `y` sebagai `aesthetic`. Bagaimana jika Anda hanya menggunakan `x` saja? Jenis `geometry` apakah yang cocok digunakan jika hanya menggunakan satu nilai `x` tersebut? (Petunjuk: distribusi data)
+
+```{r}
+ggplot(data = evals, aes(x = age)) +
+  geom____(binwidth = 5)
+```
+
+Anda juga dapat membuat grafik yang berisi prediksi model dengan menggunakan `geom_smooth`. Buatlah grafik tersebut dengan menggunakan `geom_point()` dan `geom_smooth()`! Sumbu `x` adalah 'age' dan sumbu `y` adalag 'score'. (Pada contoh ini kita akan menggunakan metode regresi linear untuk model, sehingga argumen pada `geom_smooth()` diisi dengan 'method = "lm"').
+
+```{r}
+ggplot(data = evals, aes(x = ___, y = ___)) +
+  ___ +
+  geom____(method = "lm")
+```
+
+Bagaimana jika Anda menambahkan argumen 'colour = ethnicity' ke dalam `aes()`? Apakah yang terjadi dan dapatkah Anda menjelaskannya? Anda dipersilahkan untuk  mengganti label atau menambahkan judul pada grafik dengan menggunakan `labs`.
+
+```{r}
+ggplot(data = evals, aes(x = age, y = score, colour = ___)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(
+    x = "___",
+    y = "___",
+    title = "___"
+  )
+```
