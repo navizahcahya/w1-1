@@ -1,0 +1,122 @@
+---
+title: "Transformasi Data"
+author: "Muhammad Aswan Syahputra"
+date: "4/9/2019"
+output:
+  html_document: 
+    df_print: default
+    fig_height: 6
+    fig_width: 9
+    highlight: textmate
+    keep_md: yes
+    theme: yeti
+    toc: yes
+    toc_collapsed: yes
+    toc_float: yes
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Non-tidy menjadi Tidy dataset
+
+Anda akan menggunakan fungsi `spread` dari paket `tidyr` untuk mengubah memperbaiki dataset 'table2' (juga dari paket `tidyr`). Aktifkanlah paket `tidyr`, lihat dataset 'table2'. Apakah yang membuat dataset tersebut *non-tidy* data? Bukalah dokumentasi fungsi `spread` dengan menjalankan `?nama_fungsi` atau `help(nama_fungsi)`!
+
+```{r}
+___(tidyr)
+table2
+```
+
+Dataset 'table2' dapat diperbaiki dengan menjalankan kode berikut:
+
+```{r}
+table2_tidy <- spread(table2, key = "type", value = "count")
+```
+
+Selanjutnya Anda juga akan memperbaiki dataset 'table4a'. Cetaklah dataset tersebut dan dapatkah Anda menyebutkan alasan mengapa dataset tersebut tidak *tidy* dan *tame*?
+
+```{r}
+___ # cetak dataset table4a
+```
+
+Dataset 'table4a' dapat diperbaiki dengan menggunakan fungsi `gather` dari `tidyr`. Anda dapat mempelajari fungsi tersebut dengan menjalankan `?gather`.
+
+```{r}
+gather(table4a, key = "year", value = "case", 2:3)
+
+table4a_tidy <- table4a %>% 
+  gather(key = "year", value = "cases", 2:3) # menggunakan tidyverse syntax, pipe %>%
+```
+
+Silakan lakukan hal serupa pada dataset 'table4b' namun dengan menggunakan "population" sebagai isian argumen `value`. Tuliskan juga dengan menggunakan *tidyverse syntax* dan simpan obyek tersebut dengan nama 'table4b_tidy'!
+
+```{r}
+table4b
+
+table4b_tidy <- ___
+```
+
+Dataset 'table4a_tidy' dan 'table4b_tidy' tersebut dapat digabungkan menjadi satu dataset. Hal tersebut dapat dilakukan dengan menggunakan fungsi `left_join` dari paket `dplyr` seperti contoh berikut:
+
+```{r}
+___ # mengaktifkan paket dplyr
+mydata <- left_join(table4a_tidy, table4b_tidy)
+```
+
+
+## Data Wrangling
+
+Dataset mydata tersebut merupakan subset dataset Tubercolusis yang diolah dari data 'who' dan 'population' (dari paket `tidyr`). Lihatlah ringkasan kedua tersebut dengan menggunakan `glimpse`!
+
+```{r}
+___(who)
+___(population)
+```
+
+Sekarang kita akan membuat versi utuh dari dataset 'mydata' dengan menggunakan data seluruh negara pada dataset 'who' sebagai berikut:
+
+```{r}
+# Menjalankan fungsi satu per satu
+tb1 <- gather(who, key = "key", value = "case", new_sp_m014:newrel_f65)
+tb2 <- select(tb1, country, year, case)
+tb3 <- group_by(tb2, country, year)
+tb4 <- summarise(tb3, cases = sum(case, na.rm = TRUE))
+tb5 <- ungroup(tb4)
+tb6 <- left_join(tb5, population)
+tb7 <- filter(tb6, !is.na(population))
+tb8 <- mutate(tb7, proportion = 100*cases/population)
+
+# Syntax menggunakan pipe %>%
+
+tb_all <- 
+  who %>% 
+  gather(key = "key", value = "case", new_sp_m014:newrel_f65) %>% 
+  select(country, year, case) %>% 
+  group_by(country, year) %>% 
+  summarise(cases = sum(case, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  left_join(population) %>% 
+  filter(!is.na(population)) %>% 
+  mutate(proportion = 100*cases/population)
+```
+
+Dapatkah Anda membuat ringkasan apa saja hal apa saja yang dilakukan pada proses *data wrangling* diatas? (Petunjuk: `?nama_fungsi`)
+
+1. ...
+2. ...
+3. ...
+4. ...
+5. ...
+6. ...
+7. ...
+8. ...
+
+Cek apakah dataset 'tb8' sama dengan dataset 'tb_all'! Menurut Anda, cara penulisan *syntax* manakah yang lebih mudah digunakan dan dipahami?
+
+```{r}
+___(tb8, tb_all)
+```
+
