@@ -1,0 +1,85 @@
+---
+title: "Impor Data dan Konsep Tidy Data"
+author: "Muhammad Aswan Syahputra"
+date: "4/9/2019"
+output:
+  html_document: 
+    df_print: default
+    fig_height: 6
+    fig_width: 9
+    highlight: textmate
+    keep_md: yes
+    theme: yeti
+    toc: yes
+    toc_collapsed: yes
+    toc_float: yes
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Impor Data
+
+Anda dapat menggunakan paket `readr` untuk mengimpor berkas lokal di komputer atau dari pranala (URL). Anda dapat mengaktifkan paket `readr` dengan cara menjalankan `library(nama_paket`) seperti contoh berikut: (Petunjuk: Tekan Ctrl + Enter untuk menjalankan baris kode.)
+
+```{r}
+library(readr)
+```
+
+Paket hanya perlu dipasang satu kali melalui fungsi `install.packages("nama_paket")` dan harus selalu diaktifkan setiap menggawali kerja menggunakan R agar fungsi-fungsi yang tersedia dalam paket tersebut dapat digunakan. Sebagai contoh, kita akan menggunakan fungsi `read_csv()` dari paket `readr` untuk mengimpor data 'evals.csv' dari folder 'data-raw' sebagai berikut:
+
+```{r}
+evals <- read_csv("../data-raw/evals.csv")
+evals
+```
+
+Anda dapat menggunakan fungsi `glimpse` dari paket `dplyr` untuk melihat ringkasan data. tersebut. Isilah '___' dengan jawaban yang tepat untuk melihat ringkasan data `evals`! Ada berapa variable dan observasi pada data `evals` tersebut?
+
+```{r}
+library(dplyr)
+glimpse(___)
+```
+
+Selain itu Anda juga dapat menggunakan fungsi `skim()` dari paket `skimr` untuk melihat rangkuman data. Pada *chunck* berikut, tuliskan kode untuk mengaktifkan paket `skimr` dan menjalankan fungsi `skim` pada data `evals`! Perbedaaan apakah yang Anda temukan antara penggunaan fungsi `glimpse()` dan `skim()`?
+
+```{r}
+___
+___
+```
+
+Umumnya berkas `csv` menggunakan penanda koma (,) untuk memisahkan antar kolom dan titik (.) sebagai penanda desimal. Namun bagaimana jika Anda memiliki berkas `csv` yang yang menggunakan titik-koma (;) untuk memisahkan kolom dan koma (,) sebagai penanda desimal? Anda dapat menggunakan fungsi `read_csv2` untuk melakukan hal tersebut sebagaimana ditunjukan pada contoh berikut:
+
+```{r}
+evals2 <- read_csv2("../data-raw/evals2.csv")
+identical(evals, evals2) # fungsi untuk cek kesamaan antara dua obyek
+```
+
+Selain berkas lokal yang tersedia di komputer, Anda juga dapat mengimpor berkas yang tersedia di internet langsung dengan menggunakan pranala (URL). Caranya adalah dengan mengganti lokasi berkas lokal dengan lokasi berkas *remote*. Data `evals` tersedia pada pranala "https://www.openintro.org/stat/data/evals.csv". Dapatkan Anda mengimpor berkas tersebut dan menyimpannya sebagai obyek dengan nama `evals3`? Gunakkan fungsi `identical()` untuk membandingkannya dengan `evals2`!
+
+```{r}
+___ <- read_csv(___)
+___(___, evals2)
+```
+
+## Tidy data
+
+Demi memahami konsep Tidy Data, kita akan menggunakan dataset yang tersedia di paket `tidyr`. Aktifkanlah paket `tidyr` tersebut!
+
+```{r}
+___
+```
+
+Dari dataset berikut ini, manakah yang termasuk Tidy Data? Dapatkah Anda menjelaskan alasan mengapa beberapa dataset berikut tidak *tidy*?
+
+```{r}
+table1
+table2
+table3
+table4a
+table4b
+table5
+```
+
